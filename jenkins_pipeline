@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    environment {
+        OPENAI_API_KEY = credentials(PUT YOUR KEY HERE) // Ensure you have set this credential in Jenkins
+    }
+
+    stages {
+        stage('Set up Python') {
+            steps {
+                node('any') {
+                    sh 'sudo apt-get update'
+                    sh 'sudo apt-get install -y python3 python3-pip'
+                }
+            }
+        }
+
+        stage('Install dependencies') {
+            steps {
+                node('any') {
+                    sh 'pip3 install requests pytest charset-normalizer'
+                    sh 'pip3 uninstall -y chardet'
+                }
+            }
+        }
+
+        stage('Run tests') {
+            steps {
+                node('any') {
+                    sh 'sudo -u nashtech pytest /home/nashtech/chatbot-testing/tests/'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            node('any') {
+                sh 'sudo -u nashtech pytest /home/nashtech/chatbot-testing/tests/ > /home/nashtech/chatbot-testing/test_results.txt' // Capture test results and save them into a text file
+            }
+        }
+    }
+}
