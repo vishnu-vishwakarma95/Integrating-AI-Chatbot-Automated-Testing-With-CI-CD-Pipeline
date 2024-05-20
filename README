@@ -1,0 +1,25 @@
+# Chatbot Testing with CI/CD Pipeline
+
+This project demonstrates integrating automated tests for an AI chatbot into a CI/CD pipeline using Jenkins. It uses the OpenAI GPT-3 API, with Python scripts to validate chatbot responses against predefined expected answers. 
+
+## Quick Start
+
+1. **Clone the Repository**:
+    ```sh
+    git clone <repository-url>
+    cd chatbot-testing
+    ```
+2. **Install Dependencies**:
+    ```sh
+    pip3 install requests pytest
+    ```
+3. **Set API Key**:
+    ```sh
+    export OPENAI_API_KEY=<your_openai_api_key>
+    ```
+4. **Run Tests**:
+    ```sh
+    pytest tests/test_chatbot.py
+    ```
+
+Refer to the full blog for detailed instructions and setup.
